@@ -60,26 +60,31 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-top: 60px; /* Espaço para o menu fixo */
 }
 
 /* Painéis individuais */
 .panel {
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px); /* Ajustado para compensar a altura do menu */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-top: 100px; /* Espaço para o menu */
+    padding: 60px 20px;
     background-size: cover;
     background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
+/* Seções com gradientes */
 #sobre-mim {
     background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
 }
 
-#projetos {
+#experiencia {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
@@ -99,10 +104,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(26, 42, 108, 0.7); /* Ajustado para combinar com o gradiente */
+    background: rgba(26, 42, 108, 0.6); /* Reduzido a opacidade para evitar áreas brancas */
     z-index: 1;
 }
-
 
 .content {
     position: relative;
@@ -127,7 +131,7 @@ body {
     font-weight: 300;
 }
 
-.content img {
+.content img.perfil-img {
     width: 200px;
     border-radius: 50%;
     margin-top: 20px;
@@ -135,7 +139,7 @@ body {
     transition: transform 0.3s;
 }
 
-.content img:hover {
+.content img.perfil-img:hover {
     transform: scale(1.05);
 }
 
@@ -157,11 +161,11 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
-     margin: 0 auto; /* Centraliza os projetos */
+    margin: 0 auto; /* Centraliza os projetos */
 }
 
 .experience-item {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
     padding: 30px;
     width: 280px;
     border-radius: 10px;
@@ -169,7 +173,6 @@ body {
     backdrop-filter: blur(5px);
     cursor: pointer;
     color: var(--text-color);
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
 }
 
 .experience-item:hover {
@@ -177,27 +180,20 @@ body {
     background-color: var(--accent-color);
 }
 
-/*Estilo para as logos das empresas */
-/* Ajuste para as imagens das empresas */
-/* Ajuste para as imagens das empresas */
-/* Ajuste para as imagens das empresas sem bordas circulares */
-/* Ajuste para as imagens das empresas */
-/* Ajuste para as imagens das empresas com borda quadrada */
-/* Estilo para as imagens das empresas com borda quadrada */
-                                      
 .company-logo {
     width: 100%;
     max-width: 150px;
-    height: auto; /* Ajusta a altura automaticamente para manter a proporção */
-    object-fit: contain; /* Mantém a proporção da imagem dentro do contêiner */
-    border-radius: 0 !important; /* Garante que não haja cantos arredondados */
+    height: auto; /* Mantém a proporção */
+    object-fit: contain;
+    border-radius: 0 !important; /* Borda quadrada */
     display: block;
     margin: 0 auto 15px auto;
     border: 3px solid var(--accent-color);
-    overflow: visible; /* Permite que o conteúdo transborde, se necessário */
+    overflow: visible;
+    transition: transform 0.3s;
 }
 
-.experience-item:hover .company-logo{
+.experience-item:hover .company-logo {
     transform: scale(1.1);
 }
 
@@ -205,12 +201,6 @@ body {
     font-size: 1.6em;
     margin-bottom: 10px;
     font-weight: 600;
-}
-
-.experience-item h3 {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    font-weight: 500;
 }
 
 .experience-item p {
@@ -271,91 +261,103 @@ body {
 
 /* Efeito de realce no menu ao rolar a página */
 section {
-    scroll-margin-top: 100px; /* Espaço para compensar o menu fixo */
+    scroll-margin-top: 60px; /* Espaço para compensar o menu fixo */
+}
+
+/* Menu Móvel */
+.menu-toggle {
+    display: none; /* Escondido por padrão */
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .content h1 {
-        font-size: 2.5em;
-    }
-    
-    .project-item, .skill-item {
-        width: 100%;
-    }
-    
-    .navbar ul {
+    /* Esconder a navbar por padrão */
+    .navbar {
+        display: none;
         flex-direction: column;
         background: var(--primary-color);
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -100%; /* Esconde a navbar fora da tela */
         height: 100vh;
         width: 250px;
         padding-top: 100px;
         transition: right 0.3s;
     }
-    
-    .navbar ul.active {
-        right: 0;
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
     }
-    
+
     .navbar li {
         margin: 20px 0;
     }
-    
-    .menu-toggle {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        color: var(--text-color);
-        font-size: 2em;
-        cursor: pointer;
-        z-index: 1100;
-    }
-}
 
-/* Botão de toggle do menu (mobile) */
-.menu-toggle {
-    display: none;
-}
-
-@media (max-width: 768px) {
+    /* Mostrar o botão de menu */
     .menu-toggle {
-        display: flex;
+        display: flex; /* Mostra o botão de menu */
         flex-direction: column;
         justify-content: space-around;
         width: 30px;
         height: 25px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1100;
+        cursor: pointer;
     }
-    
+
     .menu-toggle .bar {
         width: 100%;
         height: 3px;
         background-color: var(--text-color);
         transition: all 0.3s;
     }
-    
-    /* Girar barras ao clicar */
+
+    /* Transformar as barras em um "X" quando o checkbox está marcado */
     #menu-toggle:checked + .menu-toggle .bar:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
-    
+
     #menu-toggle:checked + .menu-toggle .bar:nth-child(2) {
         opacity: 0;
     }
-    
+
     #menu-toggle:checked + .menu-toggle .bar:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
-    
-    /* Mostrar menu ao clicar */
-    #menu-toggle:checked ~ .navbar ul {
-        right: 0;
+
+    /* Mostrar a navbar quando o checkbox está marcado */
+    #menu-toggle:checked ~ .navbar {
+        display: flex;
+        right: 0; /* Mostra a navbar */
     }
 }
 
-/* Esconda o checkbox */
-#menu-toggle {
-    display: none;
+@media (max-width: 600px) {
+    /* Ajustes adicionais para telas muito pequenas */
+
+    .panel {
+        padding: 40px 10px;
+    }
+
+    .content h1 {
+        font-size: 2.5em;
+    }
+
+    .experience-item,
+    .skill-item {
+        width: 90%;
+    }
+
+    .social-icon {
+        font-size: 1.5em;
+    }
+}
+
+/* Garantir que todas as imagens sejam responsivas */
+img {
+    max-width: 100%;
+    height: auto;
 }
